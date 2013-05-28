@@ -1,23 +1,23 @@
 # dumb #
 A useful tool that takes smart terminal output and makes it dumb.
 
-## What? ##
+### What? ###
 
-A smart terminal is a command-line interface that supports fancy features like color syntaxing or cursor repositioning. All modern Linux command-line interfaces are smart. A dumb terminal just prints what was written. Nothing else.
+A smart terminal is a command-line interface that supports fancy features like color syntax or cursor repositioning. All modern Linux command-line interfaces are smart. A dumb terminal just prints what was written. Nothing else.
 
-## How? ##
+### How? ###
 
-Smart terminals work by adding non-printible characters and escape sequences that you never see (or if you do, it looks like garbage.) This dumb tool will take the smart output and strip off these control characters and escape sequences.
+Smart terminals work by adding non-printable characters and escape sequences that you never see (or if you do, it looks like garbage.) This dumb tool will take the smart output and strip off these control characters and escape sequences.
 
-## Why? ##
+### Why? ###
 
 Occasionally your tty driver gets confused, or you have to examine a large pcap file that contains a tty stream. If everything looks like garbage, then run it through dumb. You'll lose out on all of the sweet terminal sugar, but you probably don't need that anyway.
 
-## Who? ##
+### Who? ###
 
 Anyone who uses a command-line will probably want to use this dumb tool once in a blue moon. 
 
-## Wait a minute, can't I just use some fancy perl one-liner to do this? ##
+### Wait a minute, can't I just use some fancy perl one-liner to do this? ###
 
 Probably, but I've never seen anyone get it right. Keep in mind that your perl one-liner:
 * is probably more than most people want to remember.
@@ -26,7 +26,7 @@ Probably, but I've never seen anyone get it right. Keep in mind that your perl o
 * will be slower than my dumb tool for large inputs.
 
 ---
-### Further Reading ###
+#### Further Reading ####
 
 Wikipedia:  
 [Command-line Interfaces](http://en.wikipedia.org/wiki/Commandline Command-Line Interfaces)  
