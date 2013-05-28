@@ -1,9 +1,9 @@
 # dumb #
-A useful tool that takes smart terminal output and makes it dumb.
+A simple tool that takes output from a smart terminal and makes it dumb.
 
 #### What? ####
 
-A smart terminal is a command-line interface that supports fancy features like color syntax or cursor repositioning. All modern Linux command-line interfaces are smart. A dumb terminal just prints what was written. Nothing else.
+A smart terminal is a command-line interface that supports fancy features like color highlighting or cursor repositioning. All modern Linux command-lines are smart. A dumb terminal just prints the characters that were written. Nothing else.
 
 #### How? ####
 
