@@ -7,15 +7,15 @@ A smart terminal is a command-line interface that supports fancy features like c
 
 #### How? ####
 
-Smart terminals work by adding non-printable characters and escape sequences that you never see (or if you do, it looks like garbage.) This tool strips off those control characters and escape sequences.
+Smart terminals work by adding non-printable characters and escape sequences that you never see (or if you do, it looks like garbage). This tool strips off all those control characters and escape sequences.
 
 #### Why? ####
 
-Occasionally your tty driver gets confused, or you have to examine a file that contains the remnants of a remote session. If you're seeing words mixed with garbage, then try running it through dumb. You'll lose out on all of the sweet terminal sugar, but you probably don't need that anyway.
+Occasionally you need to do forensic analysis on an old terminal session, or you might find a neat tool that insists on colorizing *all* of it's output. When these things happen, it's nice to have dumb.
 
 #### Who? ####
 
-Anyone who uses a command-line will probably want to use this dumb tool once in a blue moon. 
+Anyone who uses the command-line regularly will probably want to have this tool in thier kit.
 
 #### Wait a minute, can't I just use some fancy perl one-liner to do this? ####
 
