@@ -1,17 +1,17 @@
 # dumb #
-A simple tool that takes output from a smart terminal and makes it dumb.
+A simple tool for stripping control characters and escape sequences from terminal output in *nix.
 
 #### What? ####
 
-A smart terminal is a command-line interface that supports fancy features like color highlighting or cursor repositioning. All modern Linux command-lines are smart. A dumb terminal just prints the characters that were written. Nothing else.
+A smart terminal is a command-line interface that supports fancy features like color highlighting or cursor repositioning. All modern Linux command-lines are smart. A dumb terminal just prints the characters that were written, nothing else. This tool will take smart terminal style output and make it dumb.
 
 #### How? ####
 
-Smart terminals work by adding non-printable characters and escape sequences that you never see (or if you do, it looks like garbage.) This dumb tool will take the smart output and strip off these control characters and escape sequences.
+Smart terminals work by adding non-printable characters and escape sequences that you never see (or if you do, it looks like garbage.) This tool strips off those control characters and escape sequences.
 
 #### Why? ####
 
-Occasionally your tty driver gets confused, or you have to examine a large pcap file that contains a tty stream. If everything looks like garbage, then run it through dumb. You'll lose out on all of the sweet terminal sugar, but you probably don't need that anyway.
+Occasionally your tty driver gets confused, or you have to examine a file that contains the remnants of a remote session. If you're seeing words mixed with garbage, then try running it through dumb. You'll lose out on all of the sweet terminal sugar, but you probably don't need that anyway.
 
 #### Who? ####
 
@@ -22,8 +22,8 @@ Anyone who uses a command-line will probably want to use this dumb tool once in 
 Probably, but I've never seen anyone get it right. Keep in mind that your perl one-liner:
 
 * is probably more than most people want to remember.
-* won't match everything.
-* will match some stuff it shouldn't.
+* probably won't match everything.
+* probably will match some stuff it shouldn't.
 * will be slower than this dumb tool for large inputs.
 
 #### Holy hell, why did you write this in Lex?! ####
