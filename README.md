@@ -19,12 +19,12 @@ Anyone who uses the command-line regularly will probably want to have this tool 
 
 #### Wait a minute, can't I just use some fancy perl one-liner to do this? ####
 
-Probably, but I've never seen anyone get it right. Keep in mind that your perl one-liner:
+Probably, but I've never seen anyone get it right.  Keep this in mind when considering any regex one-liner solution:
 
-* is probably more than most people want to remember.
-* probably won't match everything.
-* probably will match some stuff it shouldn't.
-* will be slower than this dumb tool for large inputs.
+* It's probably more complex than most people want to memorize.
+* It probably won't match everything.
+* It probably will match some stuff that it shouldn't.
+* It will be slower than this tool when handling large inputs.
 
 #### Holy hell, why did you write this in Lex?! ####
 
