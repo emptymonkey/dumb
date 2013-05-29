@@ -1,34 +1,30 @@
 # dumb #
-A simple tool for stripping control characters and escape sequences from terminal output in *nix.
+A simple tool for emulating a [dumb terminal](http://en.wikipedia.org/wiki/Computer_terminal#Dumb_terminal) in Linux by stripping any [control sequences](http://www.xfree86.org/current/ctlseqs.html) from the given output.
+
+---
 
 #### What? ####
 
-A smart terminal is a command-line interface that supports fancy features like color highlighting or cursor repositioning. All modern Linux command-lines are smart. A dumb terminal just prints the characters that were written, nothing else. This tool will take smart terminal style output and make it dumb.
+A smart terminal is a [command-line interface](http://en.wikipedia.org/wiki/Commandline) that supports rich features such as formatting, color text, and cursor repositioning. All modern Linux command-lines use [terminal emulators](http://en.wikipedia.org/wiki/Terminal_emulator) which are smart. By contrast, a dumb terminal is only able print simple [ASCII characters](http://en.wikipedia.org/wiki/Ascii), nothing else. Smart terminals work by adding non-printable [control characters](http://en.wikipedia.org/wiki/Control_character) and [escape sequences](http://en.wikipedia.org/wiki/Escape_sequence) which are [embedded within the output](http://en.wikipedia.org/wiki/In-band_signaling) to control those extra features.
 
-#### How? ####
+This tool strips off all of the valid control characters and escape sequences it finds, producing simple output fit for a dumb terminal.
 
-Smart terminals work by adding non-printable characters and escape sequences that you never see (or if you do, it looks like garbage). This tool strips off all those control characters and escape sequences.
+#### Wait a minute, can't I just use a quick (perl|python|sed) one-liner to do this? ####
+Probably, but I've never seen anyone get it right. When considering a [regex](http://en.wikipedia.org/wiki/Regular_expression) one-liner, keep in mind:
 
-#### Why? ####
-
-Occasionally you need to do forensic analysis on an old terminal session, or you might find a neat tool that insists on colorizing *all* of it's output. When these things happen, it's nice to have dumb.
-
-#### Who? ####
-
-Anyone who uses the command-line regularly will probably want to have this tool in thier kit.
-
-#### Wait a minute, can't I just use some fancy perl one-liner to do this? ####
-
-Probably, but I've never seen anyone get it right.  Keep this in mind when considering any regex one-liner solution:
-
-* It's probably more complex than most people want to memorize.
+* It's probably more complex than most people will want to remember.
 * It probably won't match everything.
 * It probably will match some stuff that it shouldn't.
 * It will be slower than this tool when handling large inputs.
 
-#### Holy hell, why did you write this in Lex?! ####
 
-It seemed like it would be fun. Also, it's faster and honestly Lex lends itself to this sort of problem quite well.
+#### Holy hell, why did you write this in Lex?! ####
+It seemed like it would be fun. Also it's faster, and Lex lends itself to this sort of problem quite well.
+
+#### Ok, but why did you write this at all? ####
+I needed a tool for use in forensic analysis that would strip off known valid control sequences, but leave behind non-valid binary garbage for further analysis. I didn't find any tools that could do that, so I wrote this one.
+
+Secretly, I'm hoping the tool becomes popular so that when people point at me and say "Hey, you're that dumb Linux guy!", I can smile and say "Yes! Yes I am!"
 
 ---
 ### Examples ###
@@ -57,15 +53,3 @@ It seemed like it would be fun. Also, it's faster and honestly Lex lends itself 
     0000050: 720a 7265 636f 7665 722d 6865 6c70 6572  r.recover-helper
     0000060: 0a                                       
     
----
-### Further Reading ###
-
-Wikipedia:  
-[Command-line Interfaces](http://en.wikipedia.org/wiki/Commandline)  
-[Computer Terminal](http://en.wikipedia.org/wiki/Computer_terminal)  
-[Escape Sequence](http://en.wikipedia.org/wiki/Escape_sequence)  
-[Control Character](http://en.wikipedia.org/wiki/Control_character)  
-[C0 and C1 Control Codes](http://en.wikipedia.org/wiki/C0_and_C1_control_codes)  
-
-Xterm:  
-[Xterm Control Sequences](http://www.xfree86.org/current/ctlseqs.html)
