@@ -1,33 +1,34 @@
 # dumb #
-A simple tool for emulating a [dumb terminal](http://en.wikipedia.org/wiki/Computer_terminal#Dumb_terminal) in Linux by stripping any [control sequences](http://www.xfree86.org/current/ctlseqs.html) from the given output.
+_dumb_ is a simple tool for emulating [dumb terminals](http://en.wikipedia.org/wiki/Computer_terminal#Dumb_terminal) in Unix by stripping out valid [control sequences](http://www.xfree86.org/current/ctlseqs.html).
 
----
+**What?**  
+A smart terminal is a [command-line interface](http://en.wikipedia.org/wiki/Commandline) that supports rich features such as formatting, color text, and cursor repositioning. All modern [\*nix](http://en.wikipedia.org/wiki/*nix) command-lines use [terminal emulators](http://en.wikipedia.org/wiki/Terminal_emulator) which are smart. By contrast, a dumb terminal is only able to print simple [ASCII characters](http://en.wikipedia.org/wiki/Ascii), nothing else. Smart terminals work by adding non-printable [control characters](http://en.wikipedia.org/wiki/Control_character) and [escape sequences](http://en.wikipedia.org/wiki/Escape_sequence) which are [embedded within the output](http://en.wikipedia.org/wiki/In-band_signaling) to control those extra features.
 
-#### What? ####
+_dumb_ strips off all of the valid control characters and escape sequences it finds, producing simple output fit for a dumb terminal.
 
-A smart terminal is a [command-line interface](http://en.wikipedia.org/wiki/Commandline) that supports rich features such as formatting, color text, and cursor repositioning. All modern Linux command-lines use [terminal emulators](http://en.wikipedia.org/wiki/Terminal_emulator) which are smart. By contrast, a dumb terminal is only able print simple [ASCII characters](http://en.wikipedia.org/wiki/Ascii), nothing else. Smart terminals work by adding non-printable [control characters](http://en.wikipedia.org/wiki/Control_character) and [escape sequences](http://en.wikipedia.org/wiki/Escape_sequence) which are [embedded within the output](http://en.wikipedia.org/wiki/In-band_signaling) to control those extra features.
 
-This tool strips off all of the valid control characters and escape sequences it finds, producing simple output fit for a dumb terminal.
-
-#### Wait a minute, can't I just use a quick (perl|python|sed) one-liner to do this? ####
-Probably, but I've never seen anyone get it right. When considering a [regex](http://en.wikipedia.org/wiki/Regular_expression) one-liner, keep in mind:
-
+**Wait a minute, can't I just use a quick (perl|python|sed) one-liner to do this?**  
+Probably, but I've never seen anyone get it right. When considering a [regex](http://en.wikipedia.org/wiki/Regular_expression) one-liner for this particular task, keep in mind:  
 * It's probably more complex than most people will want to remember.
 * It probably won't match everything.
 * It probably will match some stuff that it shouldn't.
 * It will be slower than this tool when handling large inputs.
 
 
-#### Holy hell, why did you write this in Lex?! ####
+**Holy hell, why did you write this in Lex?!**  
 It seemed like it would be fun. Also it's faster, and Lex lends itself to this sort of problem quite well.
 
-#### Ok, but why did you write this at all? ####
+
+**Ok, but why did you need to write this at all?**  
 I needed a tool for use in forensic analysis that would strip off known valid control sequences, but leave behind non-valid binary garbage for further analysis. I didn't find any tools that could do that, so I wrote this one.
 
-Secretly, I'm hoping the tool becomes popular so that when people point at me and say "Hey, you're that dumb Linux guy!", I can smile and say "Yes! Yes I am!"
+Secretly, I'm hoping the tool becomes popular enough that when people point at me and say "Hey, you're that dumb Unix guy!", I can smile and say "Yes! Yes I am!"
+
 
 ---
 ### Examples ###
+
+I've piped the output of `ls --color` to xxd in order to demonstrate the embedded control sequences:
 
     empty@monkey:~$ ls --color /usr/lib/games/nethack/ | xxd
     0000000: 1b5b 306d 1b5b 3031 3b33 326d 6467 6e5f  .[0m.[01;32mdgn_
