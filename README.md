@@ -9,6 +9,7 @@ _dumb_ strips off all of the valid control characters and escape sequences it fi
 
 **Wait a minute, can't I just use a quick (perl|python|sed) one-liner to do this?**  
 Probably, but I've never seen anyone get it right. When considering a [regex](http://en.wikipedia.org/wiki/Regular_expression) one-liner for this particular task, keep in mind:  
+
 * It's probably more complex than most people will want to remember.
 * It probably won't match everything.
 * It probably will match some stuff that it shouldn't.
@@ -22,37 +23,72 @@ It seemed like it would be fun. Also it's faster, and Lex lends itself to this s
 **Ok, but why did you need to write this at all?**  
 I needed a forensic tool that would strip off known valid control sequences, but leave behind non-valid binary garbage for further analysis. I didn't find any tools that could do that, so I wrote this one.
 
-Secretly, I'm hoping this tool becomes popular enough that when people point at me and say "Hey, you're that _dumb_ Unix guy!", I can smile and say "Yes! Yes I am!"
+Secretly, I'm hoping this tool becomes popular enough that when people point at me and say "Hey, you're that _dumb_ Unix guy!", I can smile and say "Yes! Yes I am!"  
+
+## Usage ##
+
+_dumb_ reads input on stdin and prints the stripped output to stdout. It has no switches and takes no arguments.  
 
 
 ## Examples ##
 
-I've piped the output of `ls --color` to xxd in order to demonstrate the embedded control sequences:
+Here is a simple example:
 
-    empty@monkey:~$ ls --color /usr/lib/games/nethack/
-    dgn_comp  dlb  hh  lev_comp  license  nethack-console  nethack-console.sh  nhdat  recover  recover-helper
+<pre>
+empty@monkey:/usr/games$ ls -l --color
+total 24
+-rwxr-xr-x 1 root root 22240 Sep 30  2009 <span style="color:00FF00">fortune</span>
+lrwxrwxrwx 1 root root    25 Mar  6 17:36 <span style="color:00FFFF">nethack</span> -> <span style="color:00FF00">/etc/alternatives/nethack</span>
+lrwxrwxrwx 1 root root    39 Mar  6 17:36 <span style="color:00FFFF">nethack-console</span> -> <span style="color:00FF00">../lib/games/nethack/nethack-console.sh</span>
 
-    empty@monkey:~$ ls --color /usr/lib/games/nethack/ | xxd
-    0000000: 1b5b 306d 1b5b 3031 3b33 326d 6467 6e5f  .[0m.[01;32mdgn_
-    0000010: 636f 6d70 1b5b 306d 0a1b 5b30 313b 3332  comp.[0m..[01;32
-    0000020: 6d64 6c62 1b5b 306d 0a68 680a 1b5b 3031  mdlb.[0m.hh..[01
-    0000030: 3b33 326d 6c65 765f 636f 6d70 1b5b 306d  ;32mlev_comp.[0m
-    0000040: 0a1b 5b30 313b 3336 6d6c 6963 656e 7365  ..[01;36mlicense
-    0000050: 1b5b 306d 0a1b 5b33 303b 3433 6d6e 6574  .[0m..[30;43mnet
-    0000060: 6861 636b 2d63 6f6e 736f 6c65 1b5b 306d  hack-console.[0m
-    0000070: 0a1b 5b30 313b 3332 6d6e 6574 6861 636b  ..[01;32mnethack
-    0000080: 2d63 6f6e 736f 6c65 2e73 681b 5b30 6d0a  -console.sh.[0m.
-    0000090: 6e68 6461 740a 1b5b 3330 3b34 336d 7265  nhdat..[30;43mre
-    00000a0: 636f 7665 721b 5b30 6d0a 1b5b 3031 3b33  cover.[0m..[01;3
-    00000b0: 326d 7265 636f 7665 722d 6865 6c70 6572  2mrecover-helper
-    00000c0: 1b5b 306d 0a                             .[0m.
+empty@monkey:/usr/games$ ls -l --color | dumb 
+total 24
+-rwxr-xr-x 1 root root 22240 Sep 30  2009 fortune
+lrwxrwxrwx 1 root root    25 Mar  6 17:36 nethack -> /etc/alternatives/nethack
+lrwxrwxrwx 1 root root    39 Mar  6 17:36 nethack-console -> ../lib/games/nethack/nethack-console.sh
+</pre>
 
-    empty@monkey:~$ ls --color /usr/lib/games/nethack/ | dumb | xxd
-    0000000: 6467 6e5f 636f 6d70 0a64 6c62 0a68 680a  dgn_comp.dlb.hh.
-    0000010: 6c65 765f 636f 6d70 0a6c 6963 656e 7365  lev_comp.license
-    0000020: 0a6e 6574 6861 636b 2d63 6f6e 736f 6c65  .nethack-console
-    0000030: 0a6e 6574 6861 636b 2d63 6f6e 736f 6c65  .nethack-console
-    0000040: 2e73 680a 6e68 6461 740a 7265 636f 7665  .sh.nhdat.recove
-    0000050: 720a 7265 636f 7665 722d 6865 6c70 6572  r.recover-helper
-    0000060: 0a                                       
-    
+
+Here, we demonstrate the character stripping by piping the output through xxd:
+
+<pre>
+empty@monkey:/usr/games$ ls -l --color | xxd
+0000000: 746f 7461 6c20 3234 0a2d 7277 7872 2d78  total 24.-rwxr-x
+0000010: 722d 7820 3120 726f 6f74 2072 6f6f 7420  r-x 1 root root 
+0000020: 3232 3234 3020 5365 7020 3330 2020 3230  22240 Sep 30  20
+0000030: 3039 201b 5b30 6d1b 5b30 313b 3332 6d66  09 .[0m.[01;32mf
+0000040: 6f72 7475 6e65 1b5b 306d 0a6c 7277 7872  ortune.[0m.lrwxr
+0000050: 7778 7277 7820 3120 726f 6f74 2072 6f6f  wxrwx 1 root roo
+0000060: 7420 2020 2032 3520 4d61 7220 2036 2031  t    25 Mar  6 1
+0000070: 373a 3336 201b 5b30 313b 3336 6d6e 6574  7:36 .[01;36mnet
+0000080: 6861 636b 1b5b 306d 202d 3e20 1b5b 3031  hack.[0m -> .[01
+0000090: 3b33 326d 2f65 7463 2f61 6c74 6572 6e61  ;32m/etc/alterna
+00000a0: 7469 7665 732f 6e65 7468 6163 6b1b 5b30  tives/nethack.[0
+00000b0: 6d0a 6c72 7778 7277 7872 7778 2031 2072  m.lrwxrwxrwx 1 r
+00000c0: 6f6f 7420 726f 6f74 2020 2020 3339 204d  oot root    39 M
+00000d0: 6172 2020 3620 3137 3a33 3620 1b5b 3031  ar  6 17:36 .[01
+00000e0: 3b33 366d 6e65 7468 6163 6b2d 636f 6e73  ;36mnethack-cons
+00000f0: 6f6c 651b 5b30 6d20 2d3e 201b 5b30 313b  ole.[0m -> .[01;
+0000100: 3332 6d2e 2e2f 6c69 622f 6761 6d65 732f  32m../lib/games/
+0000110: 6e65 7468 6163 6b2f 6e65 7468 6163 6b2d  nethack/nethack-
+0000120: 636f 6e73 6f6c 652e 7368 1b5b 306d 0a    console.sh.[0m.
+
+empty@monkey:/usr/games$ ls -l --color | dumb | xxd
+0000000: 746f 7461 6c20 3234 0a2d 7277 7872 2d78  total 24.-rwxr-x
+0000010: 722d 7820 3120 726f 6f74 2072 6f6f 7420  r-x 1 root root 
+0000020: 3232 3234 3020 5365 7020 3330 2020 3230  22240 Sep 30  20
+0000030: 3039 2066 6f72 7475 6e65 0a6c 7277 7872  09 fortune.lrwxr
+0000040: 7778 7277 7820 3120 726f 6f74 2072 6f6f  wxrwx 1 root roo
+0000050: 7420 2020 2032 3520 4d61 7220 2036 2031  t    25 Mar  6 1
+0000060: 373a 3336 206e 6574 6861 636b 202d 3e20  7:36 nethack -> 
+0000070: 2f65 7463 2f61 6c74 6572 6e61 7469 7665  /etc/alternative
+0000080: 732f 6e65 7468 6163 6b0a 6c72 7778 7277  s/nethack.lrwxrw
+0000090: 7872 7778 2031 2072 6f6f 7420 726f 6f74  xrwx 1 root root
+00000a0: 2020 2020 3339 204d 6172 2020 3620 3137      39 Mar  6 17
+00000b0: 3a33 3620 6e65 7468 6163 6b2d 636f 6e73  :36 nethack-cons
+00000c0: 6f6c 6520 2d3e 202e 2e2f 6c69 622f 6761  ole -> ../lib/ga
+00000d0: 6d65 732f 6e65 7468 6163 6b2f 6e65 7468  mes/nethack/neth
+00000e0: 6163 6b2d 636f 6e73 6f6c 652e 7368 0a    ack-console.sh.
+</pre>
+
+  
