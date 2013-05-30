@@ -32,7 +32,7 @@ _dumb_ reads input on stdin and prints the stripped output to stdout. It has no 
 ## Examples ##
 
 Here is a simple example:  
-(Sorry, but I've been unable to convince Github's flavor of Markdown to properly display color text. Try this on your own machine to see the results.)
+(Sorry, but I've been unable to convince Github's flavor of Markdown to properly display color text.)
 
 <pre><code>empty@monkey:/usr/games$ ls -l --color
 total 24
