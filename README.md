@@ -23,35 +23,33 @@ It seemed like it would be fun. Also it's faster, and Lex lends itself to this s
 **Ok, but why did you need to write this at all?**  
 I needed a forensic tool that would strip off known valid control sequences, but leave behind non-valid binary garbage for further analysis. I didn't find any tools that could do that, so I wrote this one.
 
-Secretly, I'm hoping this tool becomes popular enough that when people point at me and say "Hey, you're that _dumb_ Unix guy!", I can smile and say "Yes! Yes I am!"  
+Secretly, I'm hoping this tool becomes popular enough that when people point at me and say "Hey, you're that _dumb_ Unix guy!", I can smile and say "Yes! Yes I am!"
 
 ## Usage ##
 
-_dumb_ reads input on stdin and prints the stripped output to stdout. It has no switches and takes no arguments.  
-
+_dumb_ reads input on stdin and prints the stripped output to stdout. It has no switches and takes no arguments.
 
 ## Examples ##
 
-Here is a simple example:
+Here is a simple example:  
+(Sorry, but I've been unable to convince Github's flavor of Markdown to properly display color text. Try this on your own machine to see the results.)
 
-<pre>
-empty@monkey:/usr/games$ ls -l --color
+<pre><code>empty@monkey:/usr/games$ ls -l --color
 total 24
--rwxr-xr-x 1 root root 22240 Sep 30  2009 <span style="color:00FF00">fortune</span>
-lrwxrwxrwx 1 root root    25 Mar  6 17:36 <span style="color:00FFFF">nethack</span> -> <span style="color:00FF00">/etc/alternatives/nethack</span>
-lrwxrwxrwx 1 root root    39 Mar  6 17:36 <span style="color:00FFFF">nethack-console</span> -> <span style="color:00FF00">../lib/games/nethack/nethack-console.sh</span>
+-rwxr-xr-x 1 root root 22240 Sep 30  2009 <span style="color:#00ff00">fortune</span>
+lrwxrwxrwx 1 root root    25 Mar  6 17:36 <span style="color:#00ffff">nethack</span> -> <span style="color:#00ff00">/etc/alternatives/nethack</span>
+lrwxrwxrwx 1 root root    39 Mar  6 17:36 <span style="color:#00ffff">nethack-console</span> -> <span style="color:#00ff00">../lib/games/nethack/nethack-console.sh</span>
 
 empty@monkey:/usr/games$ ls -l --color | dumb 
 total 24
 -rwxr-xr-x 1 root root 22240 Sep 30  2009 fortune
 lrwxrwxrwx 1 root root    25 Mar  6 17:36 nethack -> /etc/alternatives/nethack
-lrwxrwxrwx 1 root root    39 Mar  6 17:36 nethack-console -> ../lib/games/nethack/nethack-console.sh
-</pre>
+lrwxrwxrwx 1 root root    39 Mar  6 17:36 nethack-console -> ../lib/games/nethack/nethack-console.sh</code></pre>
 
 
 Here, we demonstrate the character stripping by piping the output through xxd:
 
-<pre>
+```
 empty@monkey:/usr/games$ ls -l --color | xxd
 0000000: 746f 7461 6c20 3234 0a2d 7277 7872 2d78  total 24.-rwxr-x
 0000010: 722d 7820 3120 726f 6f74 2072 6f6f 7420  r-x 1 root root 
@@ -89,6 +87,6 @@ empty@monkey:/usr/games$ ls -l --color | dumb | xxd
 00000c0: 6f6c 6520 2d3e 202e 2e2f 6c69 622f 6761  ole -> ../lib/ga
 00000d0: 6d65 732f 6e65 7468 6163 6b2f 6e65 7468  mes/nethack/neth
 00000e0: 6163 6b2d 636f 6e73 6f6c 652e 7368 0a    ack-console.sh.
-</pre>
+```
 
   
