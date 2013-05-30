@@ -29,6 +29,14 @@ Secretly, I'm hoping this tool becomes popular enough that when people point at 
 
 _dumb_ reads input on stdin and prints the stripped output to stdout. It has no switches and takes no arguments.
 
+## Installation ##
+
+```
+git clone git@github.com:emptymonkey/dumb.git
+cd dumb
+make
+```
+
 ## Examples ##
 
 Here is a simple example:  
