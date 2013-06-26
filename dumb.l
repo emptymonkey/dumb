@@ -48,10 +48,10 @@ CSI	({ESC}\[)|\x9B
 ST	({ESC}\\)|\x9C
 OSC	({ESC}\])|\x9D
 PM	({ESC}\^)|\x9E
-APC ({ESC}\_)|\x9F
+APC	({ESC}\_)|\x9F
 
 ENQ	\x05
-BEL \x07
+BEL	\x07
 BS	\x08
 TAB	\x09
 LF	\x0A
