@@ -42,14 +42,6 @@ Pm	{Ps}(\;{Ps})*
 Pt	[\x20-\x7e]+
 Pf	[\x08-\x0d]+ 
 
-SS3	({ESC}O)|\x8F
-DCS	({ESC}P)|\x90
-CSI	({ESC}\[)|\x9B
-ST	({ESC}\\)|\x9C
-OSC	({ESC}\])|\x9D
-PM	({ESC}\^)|\x9E
-APC	({ESC}\_)|\x9F
-
 ENQ	\x05
 BEL	\x07
 BS	\x08
@@ -62,6 +54,14 @@ SO	\x0E
 SI	\x0F
 ESC	\x1B
 SP	\x20
+
+SS3	({ESC}O)|\x8F
+DCS	({ESC}P)|\x90
+CSI	({ESC}\[)|\x9B
+ST	({ESC}\\)|\x9C
+OSC	({ESC}\])|\x9D
+PM	({ESC}\^)|\x9E
+APC	({ESC}\_)|\x9F
 
 
 %%	
