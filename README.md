@@ -92,7 +92,7 @@ Here, we demonstrate the character stripping by piping the output through xxd:
 	
 ## Installation ##
 
-	git clone git@github.com:emptymonkey/dumb.git
+	git clone https://github.com/emptymonkey/dumb.git
 	cd dumb
 	make
 
